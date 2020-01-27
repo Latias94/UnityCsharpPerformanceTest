@@ -1594,10 +1594,11 @@ MonoBehaviour:
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6BCF\u6B21\u6267\u884C\u9700\u8981\uFF1A"
+  m_Text: "\u603B\u5171\u9700\u8981\u65F6\u95F4\uFF08\u65B9\u6CD5*\u6267\u884C\u6B21\u6570*10\u6B21\uFF09/10\u6B21
+    \u7684\u65F6\u95F4\uFF1A"
 --- !u!222 &787133345
 CanvasRenderer:
   m_ObjectHideFlags: 0
