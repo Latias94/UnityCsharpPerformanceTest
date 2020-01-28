@@ -1,5 +1,3 @@
-using System.Text;
-
 namespace Tests
 {
     public class ArraysTest : PerformanceTest

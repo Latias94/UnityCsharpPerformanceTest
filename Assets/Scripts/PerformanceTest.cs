@@ -1,5 +1,5 @@
-using System;
 using System.Diagnostics;
+using UnityEngine.Profiling;
 
 public class PerformanceResult
 {
@@ -45,14 +45,18 @@ public class PerformanceTest
     {
         long msA = 0, msB = 0, msC = 0;
         long tickA = 0, tickB = 0, tickC = 0;
+
         var stopwatch = new Stopwatch();
         if (RunBaseline)
         {
             for (int i = 0; i < DefaultRepetitions; i++)
             {
+                Profiler.BeginSample($"TestA run {DefaultRepetitions} Times");
                 stopwatch.Restart();
                 var implemented = MeasureTestA();
                 stopwatch.Stop();
+                Profiler.EndSample();
+
                 if (implemented)
                 {
                     msA += stopwatch.ElapsedMilliseconds;
@@ -63,9 +67,12 @@ public class PerformanceTest
 
         for (int i = 0; i < DefaultRepetitions; i++)
         {
+            Profiler.BeginSample($"TestB run {DefaultRepetitions} Times");
             stopwatch.Restart();
             var implemented = MeasureTestB();
             stopwatch.Stop();
+            Profiler.EndSample();
+
             if (implemented)
             {
                 msB += stopwatch.ElapsedMilliseconds;
@@ -75,9 +82,12 @@ public class PerformanceTest
 
         for (int i = 0; i < DefaultRepetitions; i++)
         {
+            Profiler.BeginSample($"TestC run {DefaultRepetitions} Times");
             stopwatch.Restart();
             var implemented = MeasureTestC();
             stopwatch.Stop();
+            Profiler.EndSample();
+
             if (implemented)
             {
                 msC += stopwatch.ElapsedMilliseconds;

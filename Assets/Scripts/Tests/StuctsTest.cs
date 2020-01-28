@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Tests
 {
@@ -54,7 +52,6 @@ namespace Tests
     public class StructTest : PerformanceTest
     {
         public new const int DefaultRepetitions = 1_000_000;
-
 
         public StructTest() : base("Structs", "A:finalized class, B:class, C:struct", DefaultRepetitions)
         {

@@ -50,7 +50,14 @@ protected override bool MeasureTestB()
 }
 ```
 
+UI 上统计的是 Stopwatch 的计时
+
 ![](img/exceptions.jpg)
+
+Profiler 也能看到三个测试的统计，其中包含了 Stopwatch 的 allocation，要更准确的数据可以自行去除 Stopwatch。
+
+![](img/profiler.jpg)
+
 
 ## 参考
 * [How to Write Very Fast C# Code](https://www.youtube.com/watch?v=-H5oEgOdO6U)
