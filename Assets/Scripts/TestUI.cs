@@ -9,6 +9,7 @@ public enum TestType
     Exception,
     Strings,
     Arrays,
+    Boxing,
     ForForeach,
     Struct,
     Memory,
@@ -64,6 +65,9 @@ public class TestUI : MonoBehaviour
             case TestType.Arrays:
                 inputField.text = ArraysTest.DefaultRepetitions.ToString();
                 break;
+            case TestType.Boxing:
+                inputField.text = BoxingTest.DefaultRepetitions.ToString();
+                break;
             case TestType.ForForeach:
                 inputField.text = ForForeachTest.DefaultRepetitions.ToString();
                 break;
@@ -105,6 +109,9 @@ public class TestUI : MonoBehaviour
                 break;
             case TestType.Arrays:
                 test = new ArraysTest {RunBaseline = RunBaseLine, Iterations = iterations};
+                break;
+            case TestType.Boxing:
+                test = new BoxingTest {RunBaseline = RunBaseLine, Iterations = iterations};
                 break;
             case TestType.ForForeach:
                 test = new ForForeachTest {RunBaseline = RunBaseLine, Iterations = iterations};

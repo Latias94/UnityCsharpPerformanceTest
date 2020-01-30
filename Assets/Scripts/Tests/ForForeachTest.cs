@@ -6,7 +6,7 @@ namespace Tests
     public class ForForeachTest : PerformanceTest
     {
         public new const int DefaultRepetitions = 100;
-        private const int ListSize = 1_000_00;
+        private const int ListSize = 100_000;
 
         private List<int> list = null;
 
