@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using Tests;
 using UnityEngine;
 using UnityEngine.UI;
@@ -180,4 +183,52 @@ public class TestUI : MonoBehaviour
         float max = arr.Max();
         return (result.MillisecondsA / max, result.MillisecondsB / max, result.MillisecondsC / max);
     }
+
+    #region 反射 以后有空再写个自动生成UI类
+
+    private const string TestFolderPath = "Assets\\Scripts\\Tests\\";
+
+    private List<string> GetTestNameFromTestFolder()
+    {
+        List<string> result = new List<string>();
+        if (!Directory.Exists(TestFolderPath))
+        {
+            Debug.LogError($"Test folder path: {TestFolderPath} not exit");
+            return result;
+        }
+
+        DirectoryInfo directoryInfo = new DirectoryInfo(TestFolderPath);
+        FileInfo[] files = directoryInfo.GetFiles("*", SearchOption.AllDirectories);
+        for (int i = 0; i < files.Length; i++)
+        {
+            string fileName = files[i].Name;
+            if (fileName.EndsWith(".cs"))
+            {
+                fileName = fileName.Remove(fileName.Length - 3);
+                Debug.Log($"Name: {fileName}");
+                result.Add(fileName);
+            }
+        }
+
+        return result;
+    }
+
+    private Type GetTestClassByReflection(string className)
+    {
+        Debug.Log("----");
+        Assembly assembly =
+            Assembly.LoadFrom($"{Environment.CurrentDirectory}\\Library\\ScriptAssemblies\\Assembly-CSharp.dll");
+        dynamic obj = assembly.CreateInstance($"Tests.{className}");
+        if (obj != null && obj is PerformanceTest)
+        {
+            return obj.GetType();
+        }
+
+        Debug.Log(obj == null
+            ? $"Cannot find class: {className}"
+            : $"class: {className} hasnt implement IPerformanceTest interface");
+        return null;
+    }
+
+    #endregion
 }

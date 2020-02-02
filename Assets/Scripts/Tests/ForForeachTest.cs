@@ -10,7 +10,7 @@ namespace Tests
 
         private List<int> list = null;
 
-        public ForForeachTest() : base("For/Foreach", "A:foreach, B:for", DefaultRepetitions)
+        public ForForeachTest() : base("For/Foreach", "A:foreach, B:for, C store list length", DefaultRepetitions)
         {
             Random random = new Random();
             list = new List<int>(ListSize);
@@ -44,6 +44,26 @@ namespace Tests
             for (int i = 0; i < Iterations; i++)
             {
                 for (int j = 0; j < list.Count; j++)
+                {
+                    var number = list[j];
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 储存列表长度再迭代 这样能减少 list.Count 的调用
+        /// list.Count 背后是函数调用
+        /// callvirt     instance int32 class [mscorlib]System.Collections.Generic.List`1<int32>::get_Count()
+        /// 此外对自动生成的属性（自动生成隐藏的 get set 方法）进行赋值或者获取都会有函数调用，在大循环中也要注意
+        /// </summary>
+        protected override bool MeasureTestC()
+        {
+            int length = list.Count;
+            for (int i = 0; i < Iterations; i++)
+            {
+                for (int j = 0; j < length; j++)
                 {
                     var number = list[j];
                 }
